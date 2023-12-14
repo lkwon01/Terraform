@@ -10,6 +10,7 @@ variable "ami_id" {
     default = "ami-0230bd60aa48260c6"
 }
 
+
 variable "instance" {
     description = "this is my instance type"
     type = string
