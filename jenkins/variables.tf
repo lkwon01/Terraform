@@ -10,17 +10,6 @@ variable "ami_id" {
     default = "ami-0230bd60aa48260c6"
 }
 
-variable "vpc_id" {
-    description = "this is my vpc id"
-    type = string
-    default = "vpc-0d7c3d48634090867"
-}
-
-variable "vpc_id" {
-    description = "this is my vpc id"
-    type = string
-    default = "subnet-0e11f0102572db10e"
-}
 
 variable "instance" {
     description = "this is my instance type"
