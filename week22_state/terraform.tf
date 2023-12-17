@@ -1,23 +1,9 @@
 terraform {
-
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "lexa"
-    workspaces {
-      name = "my-aws-app"
-    }
-=======
-  backend "s3" {
-    bucket = "my-terraform-state-ghm-hyejung"
-    key    = "prod/aws_infra"
-    region = "us-east-1"
-
-  }
   required_version = ">= 1.0.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 3.0"
     }
     http = {
       source  = "hashicorp/http"
