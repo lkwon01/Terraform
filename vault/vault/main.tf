@@ -10,4 +10,5 @@ data "valut_generic_sercret" "phone_number" {
 
 output "phone_number" {
     value = data.vault_generic_secret.phone_number
+    sensitive = true
 }
