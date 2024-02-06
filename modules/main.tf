@@ -314,6 +314,7 @@ resource "aws_instance" "web_server_2" {
 module "server" {
   source    = "./modules/server"
   ami       = data.aws_ami.ubuntu.id
+  size      = "t2.micro"
   subnet_id = aws_subnet.public_subnets["public_subnet_3"].id
   security_groups = [
     aws_security_group.vpc-ping.id,
@@ -328,6 +329,10 @@ output "public_ip" {
 
 output "public_dns" {
   value = module.server.public_dns
+}
+
+output "size" {
+  value       = module.server.size
 }
 
 module "server_subnet_1" {
@@ -354,24 +359,31 @@ output "public_dns_server_subnet_1" {
 module "autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "7.3.1"
- 
+
 
   # Autoscaling group
   name = "myasg"
 
-  vpc_zone_identifier = [aws_subnet.private_subnets["private_subnet_1"].id, 
-  aws_subnet.private_subnets["private_subnet_2"].id, 
+  vpc_zone_identifier = [aws_subnet.private_subnets["private_subnet_1"].id,
+    aws_subnet.private_subnets["private_subnet_2"].id,
   aws_subnet.private_subnets["private_subnet_3"].id]
-  min_size            = 0
-  max_size            = 1
-  desired_capacity    = 1
+  min_size         = 0
+  max_size         = 1
+  desired_capacity = 1
 
   # Launch template
- 
+
 
   image_id      = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
-
+  lt_name = "my-launch-template-name"
+  lc_name = "my-launch-configuration-name"
 
 
 }
+
+output "asg_group_size" {
+  value = module.autoscaling.autoscaling_group_max_size
+}
+
+
