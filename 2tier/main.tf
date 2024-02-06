@@ -1,0 +1,3 @@
+module "twotier" {
+  source = "./module"
+}
